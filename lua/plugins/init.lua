@@ -13,6 +13,12 @@ return {
     end,
   },
 
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = require "configs.conform",
+  },
+
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
 
