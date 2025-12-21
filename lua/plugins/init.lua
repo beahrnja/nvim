@@ -1,11 +1,10 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre",
     opts = require "configs.conform",
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -14,28 +13,46 @@ return {
   },
 
   {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    opts = require "configs.conform",
+    "williamboman/mason.nvim",
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
   },
 
   {
-    "williamboman/mason.nvim",
-    opts = function()
-      return require "configs.mason"
-    end,
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    dependencies = { "williamboman/mason.nvim" },
+    opts = {
+      ensure_installed = {
+        "lua_ls", -- lua-language-server
+        "ts_ls", -- typescript-language-server
+        "html", -- html-lsp
+        "cssls", -- css-lsp
+        "eslint", -- eslint-lsp
+      },
+      automatic_installation = true,
+    },
   },
 
-  -- test new blink
-  -- { import = "nvchad.blink.lazyspec" },
-
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    opts = {
+      ensure_installed = {
+        -- Formatters
+        "prettier",
+        "stylua",
+        "black",
+      },
+      auto_update = false,
+      run_on_start = true,
+    },
+  },
 }
