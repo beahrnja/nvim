@@ -19,6 +19,13 @@ return {
     opts = require "configs.conform",
   },
 
+  {
+    "williamboman/mason.nvim",
+    opts = function()
+      return require "configs.mason"
+    end,
+  },
+
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
 
